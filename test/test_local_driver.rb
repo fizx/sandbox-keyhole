@@ -45,7 +45,4 @@ class TestLocalDriver < Test::Unit::TestCase
       assert_respond_to @driver, method.to_sym
     end
   end
-  
-  def test_key_to_path
-  end
 end
