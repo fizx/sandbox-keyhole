@@ -5,9 +5,11 @@ module Keyhole
   class LocalDriver < Driver
     include FileUtils
     BUFFER_SIZE = 2 ** 16
+    FILE_NAME_LIMIT = 2 ** 8 - 1
     
     def initialize(options = {})
       @root = options[:root] or raise "no filesystem root provided"
+      @keystore = SQLiteKeystore.new(options[:keystore] || File.join(@root, "keyhole.db"))
       @base = options[:base]
     end
     
@@ -15,6 +17,9 @@ module Keyhole
       if io = io(key)
         Resource.new(io, uri(key))
       end
+    end
+    
+    def keys(after = "", limit = "")
     end
     
     def put(key, io)
@@ -44,6 +49,7 @@ module Keyhole
     end
     
   protected
+  
     def key_to_path(key)
       File.join(@root, key_to_relative_path(key))
     end
@@ -54,11 +60,16 @@ module Keyhole
   
     def key_to_relative_path(key)
       path = File.join(Digest::MD5.hexdigest(key).scan(/.{3}/).first(3))
-      path + extension(key)
+      path + to_filename(key)
     end
     
-    def extension(file)
-      file[/\..{0,4}$/].to_s
+    def to_filename(file)
+      name = file.gsub(/^[\w\.\-]+/, '_')
+      if name.length > FILE_NAME_LIMIT
+        name[-FILE_NAME_LIMIT..-1]
+      else
+        name
+      end
     end
   end
 end

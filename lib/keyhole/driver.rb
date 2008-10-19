@@ -15,17 +15,18 @@ module Keyhole
     def put(key, io)
       raise "not implemented"
     end
-  
-    # Gets the next Keyhole::Struct in the iterator
-    def next
+    
+    # Lists keys lexicographically greater than the listed key.  Useful for
+    # paging through all keys
+    def keys(after = "", limit = 1000)
       raise "not implemented"
     end
-  
-    # Resets the iterator
-    def reset
+    
+    # Deletes the key
+    def delete(key)
       raise "not implemented"
     end
-  
+   
     # Renames a resource
     def rename(from, to)
       raise "not implemented"
