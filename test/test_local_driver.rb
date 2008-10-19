@@ -30,6 +30,14 @@ class TestLocalDriver < Test::Unit::TestCase
     assert_equal 26, @driver.keys.length
   end
   
+  def test_delete
+    @driver.put("foo", io)
+    assert @driver.exists?("foo")
+    @driver.delete("foo")
+    assert !@driver.exists?("foo")
+    assert_equal 0, @driver.keys.length
+  end
+  
   def test_nonexistant_key
     assert_nil @driver.get(@key)
     assert_equal false, @driver.exists?(@key)

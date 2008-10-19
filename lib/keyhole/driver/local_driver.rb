@@ -19,7 +19,8 @@ module Keyhole
       end
     end
     
-    def keys(after = "", limit = "")
+    def keys(after = "", limit = 1000)
+      @keystore.keys(after, limit)
     end
     
     def put(key, io)
@@ -30,6 +31,12 @@ module Keyhole
           file.syswrite(buffer)
         end
       end
+      @keystore.put(key)
+    end
+    
+    def delete(key)
+      @keystore.delete(key)
+      rm key_to_path(key)
     end
     
     def io(key)
