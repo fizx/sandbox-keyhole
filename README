@@ -1,3 +1,5 @@
+** Still a work in progress ** 
+
 Scaling filesystem access across machines is one tricky part of scaling a website.  There's a lot of options (nfs, gfs, S3, mogilefs, hadoop, etc).  Not all of these are POSIX-compliant.  They have different APIs.  
 
 Keyhole is a facade layer that describes a lowest-common-denominator filesystem.  It has drivers for some of the other filesystems, with more coming soon.  If you use Keyhole for your filesystem access, you can change the underlying filesystem without affecting application access.
