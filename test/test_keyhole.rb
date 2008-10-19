@@ -15,7 +15,7 @@ class TestKeyhole < Test::Unit::TestCase
   end
   
   def test_methods
-    %w[get put keys_after rename uri url io exists? size_of].each do |method|
+    %w[get put keys rename uri url io exists? size_of].each do |method|
       assert_respond_to @driver, method.to_sym
     end
   end
