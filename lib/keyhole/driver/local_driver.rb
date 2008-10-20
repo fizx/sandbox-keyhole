@@ -9,6 +9,7 @@ module Keyhole
     
     def initialize(options = {})
       @root = options[:root] or raise "no filesystem root provided"
+      mkdir_p @root
       @keystore = SQLiteKeystore.new(options[:keystore] || File.join(@root, "keyhole.db"))
       @base = options[:base]
     end
